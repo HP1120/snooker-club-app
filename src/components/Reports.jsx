@@ -12,12 +12,15 @@ import {
   Gamepad2,
   BarChart2,
   Printer,
-  Mail
+  Mail,
+  TrendingUp,
+  ArrowUpRight,
+  ArrowDownRight
 } from 'lucide-react';
 import '../styles/Reports.css';
 
 const Reports = () => {
-  const [selectedPeriod] = useState('this-month');
+  const [selectedPeriod, setSelectedPeriod] = useState('this-month');
   const [selectedReport, setSelectedReport] = useState('revenue');
   const [selectedView, setSelectedView] = useState('chart');
 
@@ -108,10 +111,10 @@ const Reports = () => {
 
   return (
     <div className="reports">
-      <div className="reports-header">
+      <div className="page-header">
         <div>
           <h1>Reports & Analytics</h1>
-          <p className="subtitle">Comprehensive insights and analysis</p>
+          <p className="subtitle">Comprehensive insights and business analysis</p>
         </div>
         <div className="header-actions">
           <div className="period-selector">
@@ -174,6 +177,7 @@ const Reports = () => {
               <div className="summary-header">
                 <h3>Total Revenue</h3>
                 <span className={`trend ${revenueData.trend.startsWith('+') ? 'positive' : 'negative'}`}>
+                  {revenueData.trend.startsWith('+') ? <ArrowUpRight size={16} /> : <ArrowDownRight size={16} />}
                   {revenueData.trend}
                 </span>
               </div>
@@ -241,7 +245,7 @@ const Reports = () => {
                         className="bar revenue"
                         style={{ height: `${(data.amount / Math.max(...revenueData.monthly.map(d => d.amount))) * 100}%` }}
                       >
-                        <span className="bar-value">₹{data.amount.toLocaleString()}</span>
+                        <span className="bar-value">₹{(data.amount / 1000).toFixed(0)}K</span>
                       </div>
                       <span className="time-label">{data.month}</span>
                     </div>
@@ -260,6 +264,7 @@ const Reports = () => {
               <div className="metric-header">
                 <h3>Tables Utilization</h3>
                 <span className={`trend ${utilizationData.tables.trend.startsWith('+') ? 'positive' : 'negative'}`}>
+                  {utilizationData.tables.trend.startsWith('+') ? <ArrowUpRight size={16} /> : <ArrowDownRight size={16} />}
                   {utilizationData.tables.trend}
                 </span>
               </div>
@@ -280,6 +285,7 @@ const Reports = () => {
               <div className="metric-header">
                 <h3>PS5 Utilization</h3>
                 <span className={`trend ${utilizationData.ps5.trend.startsWith('+') ? 'positive' : 'negative'}`}>
+                  {utilizationData.ps5.trend.startsWith('+') ? <ArrowUpRight size={16} /> : <ArrowDownRight size={16} />}
                   {utilizationData.ps5.trend}
                 </span>
               </div>
@@ -354,56 +360,59 @@ const Reports = () => {
         <div className="report-content">
           <div className="membership-overview">
             <div className="overview-card total">
-              <h3>Total Members</h3>
-              <div className="overview-value">{membershipData.total}</div>
-              <span className="trend positive">{membershipData.growth}</span>
+              <div className="overview-icon">
+                <Users size={24} />
+              </div>
+              <div className="overview-content">
+                <h3>Total Members</h3>
+                <div className="overview-value">{membershipData.total}</div>
+                <span className="trend positive">
+                  <ArrowUpRight size={14} />
+                  {membershipData.growth}
+                </span>
+              </div>
             </div>
 
             <div className="overview-card active">
-              <h3>Active Members</h3>
-              <div className="overview-value">{membershipData.active}</div>
-              <span className="subtitle">{Math.round((membershipData.active / membershipData.total) * 100)}% of total</span>
+              <div className="overview-icon">
+                <Users size={24} />
+              </div>
+              <div className="overview-content">
+                <h3>Active Members</h3>
+                <div className="overview-value">{membershipData.active}</div>
+                <span className="subtitle">{Math.round((membershipData.active / membershipData.total) * 100)}% of total</span>
+              </div>
             </div>
 
             <div className="overview-card premium">
-              <h3>Premium Members</h3>
-              <div className="overview-value">{membershipData.premium}</div>
-              <span className="subtitle">{Math.round((membershipData.premium / membershipData.total) * 100)}% of total</span>
+              <div className="overview-icon">
+                <Users size={24} />
+              </div>
+              <div className="overview-content">
+                <h3>Premium Members</h3>
+                <div className="overview-value">{membershipData.premium}</div>
+                <span className="subtitle">{Math.round((membershipData.premium / membershipData.total) * 100)}% of total</span>
+              </div>
             </div>
 
             <div className="overview-card retention">
-              <h3>Retention Rate</h3>
-              <div className="overview-value">{membershipData.retention}</div>
-              <span className="subtitle">Last 30 days</span>
+              <div className="overview-icon">
+                <TrendingUp size={24} />
+              </div>
+              <div className="overview-content">
+                <h3>Retention Rate</h3>
+                <div className="overview-value">{membershipData.retention}</div>
+                <span className="subtitle">Last 30 days</span>
+              </div>
             </div>
           </div>
 
           <div className="membership-charts">
             <div className="chart-section">
-              <h3>Membership Growth</h3>
-              <div className="line-chart">
-                {/* Implement line chart for monthly trend */}
-              </div>
-            </div>
-
-            <div className="chart-section">
               <h3>Membership Distribution</h3>
               <div className="pie-charts">
                 <div className="pie-chart">
                   <h4>By Type</h4>
-                  <div className="pie-segments">
-                    {Object.entries(membershipData.categories).map(([category, count]) => (
-                      <div
-                        key={category}
-                        className={`pie-segment ${category}`}
-                        style={{
-                          '--percentage': `${(count / membershipData.total) * 100}%`,
-                          '--color': category === 'premium' ? '#22c55e' :
-                                    category === 'standard' ? '#3b82f6' : '#6366f1'
-                        }}
-                      ></div>
-                    ))}
-                  </div>
                   <div className="pie-legend">
                     {Object.entries(membershipData.categories).map(([category, count]) => (
                       <div key={category} className="legend-item">
@@ -417,17 +426,6 @@ const Reports = () => {
 
                 <div className="pie-chart">
                   <h4>By Age Group</h4>
-                  <div className="pie-segments">
-                    {Object.entries(membershipData.age_groups).map(([group, count]) => (
-                      <div
-                        key={group}
-                        className={`pie-segment age-${group.replace('+', 'plus')}`}
-                        style={{
-                          '--percentage': `${(count / membershipData.total) * 100}%`,
-                        }}
-                      ></div>
-                    ))}
-                  </div>
                   <div className="pie-legend">
                     {Object.entries(membershipData.age_groups).map(([group, count]) => (
                       <div key={group} className="legend-item">
@@ -533,4 +531,4 @@ const Reports = () => {
   );
 };
 
-export default Reports; 
+export default Reports;
