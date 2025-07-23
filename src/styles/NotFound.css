@@ -1,0 +1,83 @@
+.not-found {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  text-align: center;
+  background-color: var(--bg-main);
+}
+
+.not-found-content {
+  max-width: 400px;
+}
+
+.not-found h1 {
+  font-size: var(--text-5xl);
+  font-weight: var(--font-bold);
+  color: var(--primary-500);
+  margin-bottom: var(--space-4);
+  line-height: var(--leading-none);
+}
+
+.not-found h2 {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.not-found p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-8);
+}
+
+.not-found-actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+.not-found-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-lg);
+  font-weight: var(--font-medium);
+  transition: var(--transition-colors);
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.not-found-button.primary {
+  background-color: var(--primary-600);
+  color: white;
+}
+
+.not-found-button.primary:hover {
+  background-color: var(--primary-700);
+}
+
+.not-found-button.secondary {
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border-light);
+}
+
+.not-found-button.secondary:hover {
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-focus);
+}
+
+@media (max-width: 480px) {
+  .not-found-actions {
+    flex-direction: column;
+  }
+  
+  .not-found-button {
+    width: 100%;
+    justify-content: center;
+  }
+} 

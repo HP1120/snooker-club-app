@@ -1,0 +1,142 @@
+.table-management-container {
+  padding: 24px;
+}
+
+.table-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.table-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.table-card.selected {
+  border: 2px solid var(--primary-color);
+  background-color: var(--primary-light);
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table-content {
+  padding: 16px;
+}
+
+.table-status {
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-active {
+  background-color: var(--error-light);
+  color: var(--error-dark);
+}
+
+.status-available {
+  background-color: var(--success-light);
+  color: var(--success-dark);
+}
+
+.table-details {
+  margin-top: 16px;
+}
+
+.table-details-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.table-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* Session Start Popup Styles */
+.session-popup {
+  padding: 24px;
+}
+
+.player-count-selector {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.player-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+/* Score Tracker Styles */
+.score-tracker {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.player-score {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 4px;
+  background-color: var(--background-light);
+}
+
+.player-score.winner {
+  background-color: var(--success-light);
+}
+
+.score-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 960px) {
+  .table-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .table-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .table-management-container {
+    padding: 16px;
+  }
+  
+  .table-actions {
+    flex-direction: column;
+  }
+} 
